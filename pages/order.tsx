@@ -100,6 +100,9 @@ export default function Order() {
                   price={orderProduct.product.price}
                   quantity={orderProduct.quantity}
                   href={`/product/${orderProduct.product.id}`}
+                  id={0}
+                  productId={0}
+                  inventory={0}
                 />
               </div>
             );

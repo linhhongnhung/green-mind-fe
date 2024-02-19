@@ -16,22 +16,23 @@ export default function Account() {
   const { setUser, user } = useAuth();
   const isLoggedIn = useCheckAuth();
 
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [router, user]);
+
+  const [formData, setFormData] = useState({
+    username: user?.user.username || "",
+    name: user?.name || "",
+    email: user?.email || "",
+    phonenumber: user?.phoneNumber || "",
+    address: user?.address || "",
+  });
+
+  const initialUsername = user?.user.username;
+
   if (user) {
-    useEffect( () => {
-      if (!isLoggedIn) {
-        router.push("/login");
-      }
-    }, [router, isLoggedIn])
-    const initialUsername = user.user.username;
-
-    const [formData, setFormData] = useState({
-      username: user.user.username,
-      name: user.name,
-      email: user.email,
-      phonenumber: user.phoneNumber,
-      address: user.address,
-    });
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
       setFormData({
@@ -46,20 +47,23 @@ export default function Account() {
           const response = await updateCustomer(JSON.stringify(formData));
           console.log(response);
           const customer = {
-            id: user.id,
+            id: user?.id,
             name: formData.name,
             address: formData.address,
             phoneNumber: formData.phonenumber,
             email: formData.email,
             user: {
-              id: user.user.id,
+              id: user?.user.id,
               username: initialUsername,
-              role: user.user.role,
+              role: user?.user.role,
             },
             isLoggedIn: true,
           };
           setUser(customer);
-          toast.success('Update successfully!', { autoClose: 1000, position: toast.POSITION.TOP_CENTER });
+          toast.success("Update successfully!", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_CENTER,
+          });
         } else {
           const allUsernames = await getAllUsernames();
           console.log(allUsernames);
@@ -69,7 +73,10 @@ export default function Account() {
             );
 
             if (usernameExists) {
-              toast.error('Username already exists. Please change to another value!', { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+              toast.error(
+                "Username already exists. Please change to another value!",
+                { autoClose: 5000, position: toast.POSITION.TOP_CENTER }
+              );
             } else {
               const updateData = {
                 oldUsername: initialUsername,
@@ -97,7 +104,10 @@ export default function Account() {
                 isLoggedIn: true,
               };
               setUser(customer);
-              toast.success('Update successfully!', { autoClose: 1000, position: toast.POSITION.TOP_CENTER });
+              toast.success("Update successfully!", {
+                autoClose: 1000,
+                position: toast.POSITION.TOP_CENTER,
+              });
             }
           }
         }
@@ -121,7 +131,11 @@ export default function Account() {
             </h2>
             <div className="flex flex-row justify-center px-24 pt-12 max-xl:flex-col max-xl:items-center max-sm:pt-4">
               <div className="xl:mr-48">
-                <img className="w-48 max-md:w-20" src="./img/user.svg" alt="avatar" />
+                <img
+                  className="w-48 max-md:w-20"
+                  src="./img/user.svg"
+                  alt="avatar"
+                />
               </div>
               <div className="flex flex-col gap-4 max-md:gap-2">
                 {inputList.map((item, index) => {

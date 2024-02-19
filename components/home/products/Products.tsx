@@ -37,6 +37,7 @@ const Products: React.FC = () => {
                     <Button key=""
                             href="/products"
                             text="See more"
+                            onClick={()=>{}}
                     />
                 </div>
                 <div className="grid grid-cols-3

@@ -65,7 +65,7 @@ const Cart:React.FC = () => {
   return (
     <main className="max-w-[1440px] min-h-[600px] mx-auto">
       <section className="max-w-[1280px] mx-24 my-12 max-md:mx-8">
-        <h2 className="font-bold text-base mb-8 max-md:text-tiny">Let's place an order now!</h2>
+        <h2 className="font-bold text-base mb-8 max-md:text-tiny">Let&rsquo;s place an order now!</h2>
 
         <div className="flex justify-end gap-8">
           <button className="hover:opacity-[0.6]" onClick={handleDelete}>

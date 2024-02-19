@@ -191,7 +191,7 @@ const Header: React.FC = () => {
                                 })
                             }
                             <div className="text-black ml-16">
-                                <Button key={0} href="/login" text="Login" />
+                                <Button key={0} href="/login" text="Login" onClick={()=>{}}/>
                             </div>
                         </div>
                     </div>
