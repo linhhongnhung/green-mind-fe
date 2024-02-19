@@ -82,7 +82,7 @@ const Cart:React.FC = () => {
         </div>
 
         {/* Cart item */}
-        <div className="mx-12 max-md:mx-0">
+        <div className="mx-12 max-md:mx-0 max-md:mt-8">
           {cartItems.map((item, index) => {
             return (
               <div key={index} className="flex">
