@@ -24,7 +24,7 @@ export default function AdminPage() {
 
     return (
         <main className="">
-            <Admin dataProvider={simpleRestProvider('http://localhost:3000')}>
+            <Admin dataProvider={simpleRestProvider('https://green-mind-be-production.up.railway.app')}>
                 <Resource name="products" list={ProductsList} create={CreateProduct} edit={EditProduct} />
                 <Resource name="categories" list={CategoriesList} create={CreateCategory} edit={EditCategory} />
                 <Resource name="order" list={OrdersList} edit={UpdateOrder} />
