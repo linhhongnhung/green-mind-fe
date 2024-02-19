@@ -152,7 +152,7 @@ export default function Login() {
                          md:ml-[252px]
                          over:text-content transition"
             >
-              You don&rsquo;st have an account?
+              You don&rsquo;t have an account?
             </p>
           </Link>
         </form>
