@@ -64,10 +64,12 @@ export default function SearchPage() {
 
       <section
         className="max-w-[1280px] mx-24 mt-8 mb-2
-                                grid grid-cols-4"
+                   grid grid-cols-4
+                   max-lg:mx-12 max-sm:mx-8"
+
       >
         <div className="flex">
-          <span className="font-bold text-tiny mr-8">Filter:</span>
+          <span className="font-bold md:text-tiny mr-8">Filter:</span>
           {categories.map((category) => (
             <div className="min-w-[196px]" key={category.id}>
               <input
@@ -76,7 +78,7 @@ export default function SearchPage() {
                 onChange={() => handleCategoryChange(category.id)}
               />
               <label
-                className="text-tiny ml-2"
+                className="md:text-tiny ml-2"
                 htmlFor={category.id.toString()}
               >
                 {category.name}
@@ -88,7 +90,9 @@ export default function SearchPage() {
 
       <section
         className="max-w-[1280px] mx-24 my-12
-                                grid grid-cols-4"
+                   grid grid-cols-4
+                   max-lg:grid-cols-3 max-sm:grid-cols-2 max-md:mx-4 max-lg:mx-6"
+
       >
         {filteredPlantList.map((plant, index) => {
           return (
