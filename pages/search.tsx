@@ -68,7 +68,7 @@ export default function SearchPage() {
                    max-lg:mx-12 max-sm:mx-8"
 
       >
-        <div className="flex">
+        <div className="flex max-md:flex-col">
           <span className="font-bold md:text-tiny mr-8">Filter:</span>
           {categories.map((category) => (
             <div className="min-w-[196px]" key={category.id}>
