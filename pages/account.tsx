@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 
 import {
   getAllUsernames,
-  getCustomerByUsername,
   updateCustomer,
   updateCustomerWithNewUsername,
 } from "@/api/api";

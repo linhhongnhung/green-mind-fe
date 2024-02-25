@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Link from 'next/link';
 
 interface TabItemProps {
@@ -19,4 +19,4 @@ const TabItem: React.FC<TabItemProps> = (props) => {
     )
 }
 
-export default TabItem
+export default memo(TabItem)
