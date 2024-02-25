@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react"
+import React, { MouseEventHandler, memo } from "react"
 import Link from "next/link"
 
 interface ButtonProps {
@@ -24,4 +24,4 @@ const Button: React.FC<ButtonProps> = (props) => {
     )
 }
 
-export default Button
+export default memo(Button)

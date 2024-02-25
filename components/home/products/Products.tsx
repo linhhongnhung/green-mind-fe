@@ -34,8 +34,7 @@ const Products: React.FC = () => {
                                   max-lg:w-auto">
                         Easiest way to healthy life by buying your favorite plants
                     </p>
-                    <Button key=""
-                            href="/products"
+                    <Button href="/products"
                             text="See more"
                             onClick={()=>{}}
                     />

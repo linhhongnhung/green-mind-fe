@@ -1,7 +1,7 @@
 import { addToCart, getProductById } from "@/api/api";
 import { Button, QuantityInput } from "@/components";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Unstable_NumberInput as NumberInput } from '@mui/base';
 import { useCheckAuth } from "@/components/authentication/AuthContext";
 import { toast } from "react-toastify";
@@ -38,7 +38,7 @@ const Product: React.FC<ProductProps> = (props) => {
     }
   }
 
-  const handleAddToCart = () =>
+  const handleAddToCart = useCallback(() =>
   {
     if (!user) {
       router.push("/login");
@@ -51,7 +51,7 @@ const Product: React.FC<ProductProps> = (props) => {
         toast.success('Add to cart successfully!', { autoClose: 1000, position: toast.POSITION.BOTTOM_CENTER});
       }
     }
-  }
+  }, [])
   
   return (
     <main className="max-w-[1440px] mx-auto">
