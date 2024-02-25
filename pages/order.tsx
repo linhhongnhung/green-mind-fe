@@ -4,7 +4,7 @@ import { useCheckAuth } from "@/components/authentication/AuthContext";
 import { useCartContext } from "@/components/context/CartContext";
 import SelectInput from "@/components/select_input/SelectInput";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 
 export default function Order() {
@@ -35,7 +35,7 @@ export default function Order() {
   let total = 0;
   orderProducts.map((item) => (total += item.product.price * item.quantity));
 
-  const handleMakeOrder = async () => {
+  const handleMakeOrder = useCallback(async () => {
     let products: Products[] = [];
       for (const item of orderProducts) {
         products.push({ productId: item.product.id, quantity: item.quantity });
@@ -58,7 +58,7 @@ export default function Order() {
         query: { orderJSON: orderJSON, total: total },
       })
     }
-  };
+  }, []);
 
   const handlePaymentMethodChange = (selectedOption: any) => {
     setPaymentMethod(selectedOption);
