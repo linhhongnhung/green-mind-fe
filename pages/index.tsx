@@ -1,7 +1,5 @@
-import React from 'react'
-import Home from '@/components/home/Home'
+import React from "react";
+import Home from "@/components/home/Home";
 export default function App() {
-  return (
-      <Home/>
-  )
+  return <Home />;
 }

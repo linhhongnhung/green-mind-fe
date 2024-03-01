@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
 interface CartContextProps {
   selectedProducts: number[];
@@ -24,7 +24,9 @@ interface CartItem {
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [cartItems, setcartItems] = useState<CartItem[]>([]);
 
@@ -37,19 +39,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setSelectedProducts,
     clearSelectedProducts,
     cartItems,
-    setcartItems
+    setcartItems,
   };
   return (
-    <CartContext.Provider value={contextValue}>
-      {children}
-    </CartContext.Provider>
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 };
 
 export const useCartContext = (): CartContextProps => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCartContext must be used within a CartProvider');
+    throw new Error("useCartContext must be used within a CartProvider");
   }
   return context;
 };

@@ -1,12 +1,11 @@
 import { getOrdersByCustomerId } from "@/api/api";
-import { useCheckAuth } from "@/components/authentication/AuthContext";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Slide from "@/components/animations/Slide";
 import { ProductItem } from "@/components";
-import { utcToZonedTime } from 'date-fns-tz';
+import { utcToZonedTime } from "date-fns-tz";
 
-export default function Histoty() {
+const Histoty: React.FC = () => {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [orders, setOrders] = useState<any[]>([]);
@@ -40,7 +39,9 @@ export default function Histoty() {
   return (
     <main className="max-w-[1440px] min-h-[600px] mx-auto">
       <section className="max-w-[1280px] mx-24 my-12 max-md:mx-6">
-        <h2 className="font-bold text-base mb-8 max-sm:text-tiny">Your order history</h2>
+        <h2 className="font-bold text-base mb-8 max-sm:text-tiny">
+          Your order history
+        </h2>
 
         {/* Orders */}
         <div className="mx-12 flex flex-col max-sm:mx-auto">
@@ -53,7 +54,7 @@ export default function Histoty() {
                 address={order.address}
                 phoneNumber={order.phoneNumber}
                 total={order.total}
-                date={utcToZonedTime(order.date, 'Asia/Ho_Chi_Minh')}
+                date={utcToZonedTime(order.date, "Asia/Ho_Chi_Minh")}
                 paymentMethod={order.paymentMethod}
                 paymentStatus={order.paymentStatus}
                 shipmentStatus={order.shipmentStatus}
@@ -65,20 +66,7 @@ export default function Histoty() {
       </section>
     </main>
   );
-}
-
-interface Order {
-  id: number;
-  quantity: number;
-  product: {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    quantity: number;
-    image: string;
-  };
-}
+};
 
 interface OrderItemProps {
   id: number;
@@ -142,7 +130,9 @@ const OrderItem: React.FC<OrderItemProps> = (props) => {
             <div className="mx-8 max-sm:mx-3">
               <p className="font-bold sm:text-tiny">ID {id}</p>
               <p className="text-content">Total: {total} đ</p>
-              <p className="text-gray max-sm:leading-4">Date: {date.toString()}</p>
+              <p className="text-gray max-sm:leading-4">
+                Date: {date.toString()}
+              </p>
             </div>
           </div>
           <img src="./icon/DropUp.svg" />
@@ -208,3 +198,5 @@ const OrderItem: React.FC<OrderItemProps> = (props) => {
     );
   }
 };
+
+export default Histoty;

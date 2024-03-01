@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-
+import React from "react";
 import Select from "react-select";
 
-
 interface SelectInputProps {
-  data: object[],
+  data: object[];
   onChange: any;
 }
 
 const SelectInput: React.FC<SelectInputProps> = (props) => {
-  const { data, onChange } = props
+  const { data, onChange } = props;
 
   return (
     <Select

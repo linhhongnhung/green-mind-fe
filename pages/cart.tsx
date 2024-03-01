@@ -1,12 +1,24 @@
 import { getCart, removeCartItemByProductId } from "@/api/api";
-import { Button, ProductItem } from "@/components";
-import { useCheckAuth } from "@/components/authentication/AuthContext";
+import { ProductItem } from "@/components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { CartProvider, useCartContext } from "@/components/context/CartContext";
+import { useCartContext } from "@/components/context/CartContext";
 import { toast } from "react-toastify";
 
-const Cart:React.FC = () => {
+interface CartItem {
+  id: number;
+  quantity: number;
+  product: {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    image: string;
+  };
+}
+
+const Cart: React.FC = () => {
   const router = useRouter();
   const { selectedProducts, clearSelectedProducts } = useCartContext();
   const { cartItems, setcartItems } = useCartContext();
@@ -20,13 +32,13 @@ const Cart:React.FC = () => {
       router.push("/login");
     }
   }, [router]);
-  
+
   useEffect(() => {
     clearSelectedProducts();
   }, []);
 
   const fetchCartItems = async () => {
-    try {     
+    try {
       if (user) {
         const response = await getCart(user.id);
         setcartItems(response.reverse());
@@ -38,13 +50,13 @@ const Cart:React.FC = () => {
 
   useEffect(() => {
     fetchCartItems();
-  }, [ user]);
+  }, [user]);
 
   const handleMakeOrder = () => {
     router.push({
-        pathname: "/order",
-        query: { selectedProducts: JSON.stringify(selectedProducts) },
-      });
+      pathname: "/order",
+      query: { selectedProducts: JSON.stringify(selectedProducts) },
+    });
   };
 
   const handleDelete = async () => {
@@ -55,7 +67,10 @@ const Cart:React.FC = () => {
         );
         await Promise.all(removalPromises);
         fetchCartItems();
-        toast.success('Update cart successfully!', { autoClose: 1000, position: toast.POSITION.TOP_CENTER});
+        toast.success("Update cart successfully!", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     } catch (error) {
       console.error("An error occurred while deleting items: ", error);
@@ -65,20 +80,25 @@ const Cart:React.FC = () => {
   return (
     <main className="max-w-[1440px] min-h-[600px] mx-auto">
       <section className="max-w-[1280px] mx-24 my-12 max-md:mx-8">
-        <h2 className="font-bold text-base mb-8 max-md:text-tiny">Let&rsquo;s place an order now!</h2>
+        <h2 className="font-bold text-base mb-8 max-md:text-tiny">
+          Let&rsquo;s place an order now!
+        </h2>
 
         <div className="flex justify-end gap-8">
           <button className="hover:opacity-[0.6]" onClick={handleDelete}>
             <img className="w-8" src="./icon/remove.svg" alt="remove icon" />
           </button>
-          <button className="w-[168px] h-[50px] rounded-[8px]
-                                           bg-primary
-                                           text-tiny
-                                           relative
-                                           hover:brightness-[0.6] transition delay-100 duration-300"
-                    onClick={handleMakeOrder}>
-                Buy now
-            </button>
+          <button
+            className="
+              w-[168px] h-[50px] rounded-[8px]
+              bg-primary
+              text-tiny
+              relative
+              hover:brightness-[0.6] transition delay-100 duration-300"
+            onClick={handleMakeOrder}
+          >
+            Buy now
+          </button>
         </div>
 
         {/* Cart item */}
@@ -104,19 +124,6 @@ const Cart:React.FC = () => {
       </section>
     </main>
   );
-}
+};
 
-interface CartItem {
-  id: number;
-  quantity: number;
-  product: {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    quantity: number;
-    image: string;
-  };
-}
-
-export default Cart
+export default Cart;

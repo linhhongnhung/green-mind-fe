@@ -1,13 +1,25 @@
-import {
-  getAllCategories,
-  getAllProducts,
-  getAllProductsWithCategories,
-} from "@/api/api";
+import { getAllCategories, getAllProductsWithCategories } from "@/api/api";
 import { PlantCard } from "@/components";
-import Slide from "@/components/animations/Slide";
 import { Search } from "@/components/home";
 import React, { useEffect, useState } from "react";
-export default function Products() {
+
+interface Plant {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  image: string;
+  categories: Category[];
+}
+
+interface Category {
+  id: number;
+  name: string;
+  description: string;
+}
+
+const Products: React.FC = () => {
   const [plantList, setPlantList] = useState<Plant[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
@@ -62,9 +74,10 @@ export default function Products() {
     <main className="max-w-[1440px] mx-auto">
       <Search />
       <section
-        className="max-w-[1280px] mx-24 mt-8 mb-2
-                   grid grid-cols-4
-                   max-lg:mx-12 max-sm:mx-8"
+        className="
+          max-w-[1280px] mx-24 mt-8 mb-2
+          grid grid-cols-4
+          max-lg:mx-12 max-sm:mx-8"
       >
         <div className="flex max-md:flex-col">
           <span className="font-bold md:text-tiny mr-8">Filter:</span>
@@ -87,9 +100,10 @@ export default function Products() {
       </section>
 
       <section
-        className="max-w-[1280px] mx-24 mb-12
-                   grid grid-cols-4
-                   max-lg:grid-cols-3 max-sm:grid-cols-2 max-md:mx-4 max-lg:mx-6"
+        className="
+          max-w-[1280px] mx-24 mb-12
+          grid grid-cols-4
+          max-lg:grid-cols-3 max-sm:grid-cols-2 max-md:mx-4 max-lg:mx-6"
       >
         {filteredPlantList.map((plant, index) => {
           return (
@@ -105,20 +119,6 @@ export default function Products() {
       </section>
     </main>
   );
-}
+};
 
-interface Plant {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  quantity: number;
-  image: string;
-  categories: Category[];
-}
-
-interface Category {
-  id: number;
-  name: string;
-  description: string;
-}
+export default Products;

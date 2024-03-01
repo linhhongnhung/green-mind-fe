@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components";
 import { useRouter } from "next/router";
 import { useAuth, useCheckAuth } from "@/components/authentication/AuthContext";
 import { toast } from "react-toastify";
@@ -10,10 +9,32 @@ import {
   updateCustomerWithNewUsername,
 } from "@/api/api";
 
-export default function Account() {
+const Account: React.FC = () => {
+  const inputList = [
+    {
+      label: "Username",
+      type: "text",
+    },
+    {
+      label: "Name",
+      type: "text",
+    },
+    {
+      label: "Email",
+      type: "email",
+    },
+    {
+      label: "Phonenumber",
+      type: "text",
+    },
+    {
+      label: "Address",
+      type: "text",
+    },
+  ];
+
   const router = useRouter();
   const { setUser, user } = useAuth();
-  const isLoggedIn = useCheckAuth();
 
   useEffect(() => {
     if (!user) {
@@ -156,23 +177,25 @@ export default function Account() {
                 })}
                 <div className="mt-8 flex gap-8 max-xl:justify-center max-md:gap-4 max-sm:gap-2">
                   <button
-                    className="w-[168px] h-[50px] rounded-[8px]
-                                             bg-primary
-                                             md:text-tiny
-                                             relative
-                                             hover:brightness-[0.6] transition delay-100 duration-300
-                                             max-md:w-[132px] max-md:h-[44px]"
+                    className="
+                      w-[168px] h-[50px] rounded-[8px]
+                      bg-primary
+                      md:text-tiny
+                      relative
+                      hover:brightness-[0.6] transition delay-100 duration-300
+                      max-md:w-[132px] max-md:h-[44px]"
                     onClick={handleUpdate}
                   >
                     Update
                   </button>
                   <button
-                    className="w-[168px] h-[50px] rounded-[8px]
-                                             bg-primary
-                                             md:text-tiny
-                                             relative
-                                             hover:brightness-[0.6] transition delay-100 duration-300
-                                             max-md:w-[132px] max-md:h-[44px]"
+                    className="
+                      w-[168px] h-[50px] rounded-[8px]
+                      bg-primary
+                      md:text-tiny
+                      relative
+                      hover:brightness-[0.6] transition delay-100 duration-300
+                      max-md:w-[132px] max-md:h-[44px]"
                     onClick={handleLogout}
                   >
                     Log out
@@ -185,7 +208,7 @@ export default function Account() {
       </main>
     );
   }
-}
+};
 
 interface InputFieldProps {
   key: number;
@@ -202,13 +225,14 @@ const InputField: React.FC<InputFieldProps> = (props) => {
       <label className="text-gray max-sm:mx-auto" htmlFor={label}>
         {label}
         <input
-          className="w-[449px] h-16 rounded-[12px]
-                                        px-[18px] mt-2
-                                        xl:text-tiny
-                                        bg-zinc-100 text-content
-                                        focus:ring-2 focus:ring-content focus:outline-none transition
-                                        block
-                                        max-sm:max-w-[316px] max-sm:mx-auto max-md:h-12"
+          className="
+            w-[449px] h-16 rounded-[12px]
+            px-[18px] mt-2
+            xl:text-tiny
+            bg-zinc-100 text-content
+            focus:ring-2 focus:ring-content focus:outline-none transition
+            block
+            max-sm:max-w-[316px] max-sm:mx-auto max-md:h-12"
           type={type}
           value={value}
           name={label.toLowerCase()}
@@ -219,25 +243,4 @@ const InputField: React.FC<InputFieldProps> = (props) => {
   );
 };
 
-const inputList = [
-  {
-    label: "Username",
-    type: "text",
-  },
-  {
-    label: "Name",
-    type: "text",
-  },
-  {
-    label: "Email",
-    type: "email",
-  },
-  {
-    label: "Phonenumber",
-    type: "text",
-  },
-  {
-    label: "Address",
-    type: "text",
-  },
-];
+export default Account;

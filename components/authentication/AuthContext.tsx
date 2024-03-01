@@ -1,17 +1,22 @@
-import { useRouter } from "next/router";
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface User {
-  id: number,
-  name: string
-  address: string,
-  phoneNumber: string,
-  email: string,
+  id: number;
+  name: string;
+  address: string;
+  phoneNumber: string;
+  email: string;
   user: {
-      id: number,
-      username: string,
-      role: string
-  }
+    id: number;
+    username: string;
+    role: string;
+  };
   isLoggedIn: boolean;
 }
 
@@ -22,7 +27,9 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
 
   // Thử lấy dữ liệu user từ Local Storage khi component được tạo
@@ -52,4 +59,3 @@ export const useCheckAuth = () => {
   const { user } = useAuth();
   return user;
 };
-

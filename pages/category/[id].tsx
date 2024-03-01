@@ -1,9 +1,18 @@
 import { getAllProducts } from "@/api/api";
 import { PlantCard } from "@/components";
-import Slide from "@/components/animations/Slide";
 import { Search } from "@/components/home";
 import React, { useEffect, useState } from "react";
-export default function Category() {
+
+interface Plant {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
+const Category: React.FC = () => {
   const [plantList, setPlantList] = useState<Plant[]>([]);
 
   useEffect(() => {
@@ -22,10 +31,7 @@ export default function Category() {
   return (
     <main className="max-w-[1440px] mx-auto">
       <Search />
-      <section
-        className="max-w-[1280px] mx-24 my-12
-                                grid grid-cols-4"
-      >
+      <section className="max-w-[1280px] mx-24 my-12 grid grid-cols-4">
         {plantList.map((plant, index) => {
           return (
             <PlantCard
@@ -40,14 +46,6 @@ export default function Category() {
       </section>
     </main>
   );
-}
+};
 
-interface Plant {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
-
+export default Category;

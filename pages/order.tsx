@@ -7,7 +7,17 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 
-export default function Order() {
+interface Products {
+  productId: number;
+  quantity: number;
+}
+
+const Order: React.FC = () => {
+  const paymentMethods = [
+    { value: "Cash", label: "Cash" },
+    { value: "VNPAY", label: "VNPAY" },
+  ];
+
   const router = useRouter();
   const user = useCheckAuth();
   const [selectedProductsState, setSelectedProductsState] = useState<number[]>(
@@ -37,26 +47,29 @@ export default function Order() {
 
   const handleMakeOrder = useCallback(async () => {
     let products: Products[] = [];
-      for (const item of orderProducts) {
-        products.push({ productId: item.product.id, quantity: item.quantity });
-      }
-      const orderData = {
-        customerId: user?.id,
-        products: products,
-        paymentMethod: paymentMethod.value,
-      };
-      const orderJSON = JSON.stringify(orderData);
+    for (const item of orderProducts) {
+      products.push({ productId: item.product.id, quantity: item.quantity });
+    }
+    const orderData = {
+      customerId: user?.id,
+      products: products,
+      paymentMethod: paymentMethod.value,
+    };
+    const orderJSON = JSON.stringify(orderData);
     if (paymentMethod.value === "Cash") {
       await createOrder(orderJSON);
-      toast.success('Order successfully!', { autoClose: 1000, position: toast.POSITION.TOP_CENTER });
-      router.push("/history")
+      toast.success("Order successfully!", {
+        autoClose: 1000,
+        position: toast.POSITION.TOP_CENTER,
+      });
+      router.push("/history");
     } else {
-      localStorage.setItem("orderData", orderJSON)
-      console.log(paymentMethod.value)
+      localStorage.setItem("orderData", orderJSON);
+      console.log(paymentMethod.value);
       router.push({
         pathname: "/payment",
         query: { orderJSON: orderJSON, total: total },
-      })
+      });
     }
   }, []);
 
@@ -75,7 +88,9 @@ export default function Order() {
   return (
     <main className="max-w-[1440px] mx-auto">
       <section className="max-w-[1280px] mx-24 my-12 max-md:mx-16 max-sm:mx-6">
-        <h2 className="font-bold text-base mb-8 max-md:text-tiny">Confirm your order:</h2>
+        <h2 className="font-bold text-base mb-8 max-md:text-tiny">
+          Confirm your order:
+        </h2>
         <div className="flex flex-col gap-2 md:ml-24 md:text-tiny">
           <p>
             <b>Name:</b> {user?.name}
@@ -108,7 +123,9 @@ export default function Order() {
             );
           })}
         </div>
-        <p className="md:text-tiny ml-auto md:w-[200px] mb-16 max-md:mb-8 max-md:mt-2">Total: <b>{total}</b></p>
+        <p className="md:text-tiny ml-auto md:w-[200px] mb-16 max-md:mb-8 max-md:mt-2">
+          Total: <b>{total}</b>
+        </p>
         <div className="md:w-[400px] ml-auto">
           <p className="mb-2 font-bold ml-auto">Payment methods:</p>
           <SelectInput
@@ -137,14 +154,6 @@ export default function Order() {
       </section>
     </main>
   );
-}
+};
 
-const paymentMethods = [
-  { value: "Cash", label: "Cash" },
-  { value: "VNPAY", label: "VNPAY" },
-];
-
-interface Products {
-  productId: number;
-  quantity: number;
-}
+export default Order;

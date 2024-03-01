@@ -1,12 +1,12 @@
-import { Search, Products, Categories, AboutUs, Feedback } from "."
+import { Search, Products, Categories, AboutUs, Feedback } from ".";
 export default function Home() {
-    return (
-        <main className="">
-            <Search />
-            <Products />
-            <AboutUs />
-            <Categories />
-            <Feedback />
-        </main>
-    )
+  return (
+    <main className="">
+      <Search />
+      <Products />
+      <AboutUs />
+      <Categories />
+      <Feedback />
+    </main>
+  );
 }

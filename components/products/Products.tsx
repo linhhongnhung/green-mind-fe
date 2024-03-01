@@ -1,4 +1,4 @@
-import { createProduct, getCategoriesByIds, getProductImageUrl } from "@/api/api";
+import { getCategoriesByIds, getProductImageUrl } from "@/api/api";
 import React, { useState, useEffect } from "react";
 import {
   List,
@@ -11,10 +11,8 @@ import {
   EditButton,
   TextInput,
   ImageField,
-  ImageInput,
   CheckboxGroupInput,
   ReferenceArrayInput,
-  AutocompleteArrayInput,
 } from "react-admin";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { CloudinaryUploadWidget } from "..";
@@ -39,12 +37,6 @@ interface EditProduct {
   image: string;
   categoryProducts: any;
 }
-
-// interface Category {
-//   id: number;
-//   name: string;
-//   description: string;
-// }
 
 interface ProductsProps extends ListProps {
   data: Products[];
@@ -71,6 +63,7 @@ export const ProductsList: React.FC<ProductsProps> = (props) => (
 
 export const CreateProduct: React.FC<ProductsProps> = (props) => {
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+
   const handleCategoryChange = (selectedValues: any) => {
     const numericValues = selectedValues.map(Number);
     setSelectedCategories(numericValues);
@@ -84,6 +77,7 @@ export const CreateProduct: React.FC<ProductsProps> = (props) => {
     cloudName,
     uploadPreset,
   });
+
   const cld = new Cloudinary({
     cloud: {
       cloudName,
@@ -145,15 +139,16 @@ export const EditProduct: React.FC<EditProductsProps> = (props) => {
   const [cloudName] = useState("dmwxkptur");
   const [uploadPreset] = useState("fhfkedgf");
 
-  function extractIdFromUrl() {
+  const extractIdFromUrl = () => {
     const currentPath = window.location.href;
     const matches = currentPath.match(/\/products\/(\d+)$/);
     if (matches && matches.length > 1) {
       return matches[1];
     }
     return null;
-  }
+  };
   const id = extractIdFromUrl();
+
   useEffect(() => {
     const getImageUrl = async () => {
       try {
@@ -174,11 +169,13 @@ export const EditProduct: React.FC<EditProductsProps> = (props) => {
     cloudName,
     uploadPreset,
   });
+
   const cld = new Cloudinary({
     cloud: {
       cloudName,
     },
   });
+
   const productImage = cld.image(publicId);
 
   const transform = async (data: any) => {
@@ -191,19 +188,6 @@ export const EditProduct: React.FC<EditProductsProps> = (props) => {
       categories: categoriesList,
     };
   };
-  // // Load the existing product data
-  // const existingProductData = props.record; // Assuming there's only one product
-
-  // // Extract the categories from the existing product data
-  // const productCategories = existingProductData.categories || [];
-  // const productCategoryIds = productCategories.map(category => category.id)
-
-  // // Set the initial selectedCategories state to match the product's categories
-  // useEffect(() => {
-  //   setSelectedCategories(productCategoryIds);
-  // }, [productCategoryIds]);
-
-  // console.log(props)
 
   return (
     <Edit {...props} transform={transform}>
@@ -227,7 +211,7 @@ export const EditProduct: React.FC<EditProductsProps> = (props) => {
         </ReferenceArrayInput>
 
         <ImageField source="image" />
-        
+
         <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
 
         <div style={{ width: "800px" }}>

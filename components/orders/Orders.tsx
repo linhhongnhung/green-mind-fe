@@ -27,6 +27,19 @@ interface OrdersProps extends ListProps {
   data: Orders[];
 }
 
+interface Order {
+  id: number;
+  name: string;
+  address: string;
+  phoneNumber: string;
+  total: number;
+  date: Date;
+  paymentMethod: string;
+  paymentStatus: string;
+  shipmentStatus: string;
+  orderProducts: any[];
+}
+
 export const OrdersList: React.FC<OrdersProps> = (props) => (
   <List {...props}>
     <Datagrid rowClick="edit" size="medium">
@@ -44,26 +57,18 @@ export const OrdersList: React.FC<OrdersProps> = (props) => (
 );
 
 export const UpdateOrder: React.FC<OrdersProps> = (props) => {
-  // const router = useRouter();
-  // const { id } = router.query; // Get the orderId from the router
-
   const [order, setOrder] = useState<Order>();
 
   function extractIdFromUrl() {
-    // Lấy đường dẫn hiện tại
-    const currentPath = window.location.href;
-
-    // Tìm số cuối cùng trong đường dẫn
-    const matches = currentPath.match(/\/order\/(\d+)$/);
+    const currentPath = window.location.href; // Lấy đường dẫn hiện tại
+    const matches = currentPath.match(/\/order\/(\d+)$/); // Tìm số cuối cùng trong đường dẫn
 
     // Kiểm tra nếu có matches và nếu có ít nhất một capture group
     if (matches && matches.length > 1) {
-      // Trả về phần tử cuối cùng (ID)
-      return matches[1];
+      return matches[1]; // Trả về phần tử cuối cùng (ID)
     }
 
-    // Trả về null nếu không tìm thấy ID
-    return null;
+    return null; // Trả về null nếu không tìm thấy ID
   }
   const id = extractIdFromUrl();
 
@@ -73,9 +78,7 @@ export const UpdateOrder: React.FC<OrdersProps> = (props) => {
         const orderId = {
           orderId: id,
         };
-        const orderData: Order = await getOrderById(
-          JSON.stringify(orderId)
-        );
+        const orderData: Order = await getOrderById(JSON.stringify(orderId));
         setOrder(orderData);
         console.log(order);
       } catch (error) {
@@ -114,19 +117,27 @@ export const UpdateOrder: React.FC<OrdersProps> = (props) => {
               { id: "Delivered", name: "Delivered" },
             ]}
           />
-
         </SimpleForm>
       </Edit>
       <div className="m-12">
         {order?.orderProducts.map((orderProduct, index) => {
           return (
             <div className="flex" key={index}>
-              <Link href={`/product/${orderProduct.product.id}`} className="flex gap-12 my-2">
-                <img className="w-24" src={orderProduct.product.image} alt="product image" />
+              <Link
+                href={`/product/${orderProduct.product.id}`}
+                className="flex gap-12 my-2"
+              >
+                <img
+                  className="w-24"
+                  src={orderProduct.product.image}
+                  alt="product image"
+                />
                 <div>
                   <p className="font-bold">{orderProduct.product.name}</p>
                   <p>{orderProduct.product.price}</p>
-                  <p className="text-gray">Quantity: x {orderProduct.quantity}</p>
+                  <p className="text-gray">
+                    Quantity: x {orderProduct.quantity}
+                  </p>
                 </div>
               </Link>
             </div>
@@ -136,16 +147,3 @@ export const UpdateOrder: React.FC<OrdersProps> = (props) => {
     </React.Fragment>
   );
 };
-
-interface Order {
-  id: number;
-  name: string;
-  address: string;
-  phoneNumber: string;
-  total: number;
-  date: Date;
-  paymentMethod: string;
-  paymentStatus: string;
-  shipmentStatus: string;
-  orderProducts: any[];
-}

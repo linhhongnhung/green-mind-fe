@@ -1,15 +1,21 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface Admin {
+  id: number;
+  position: string;
+  user: {
     id: number;
-    position: string;
-    user: {
-      id: number;
-      username: string;
-      role: string;
-    };
-    isLoggedIn: boolean;
-  }
+    username: string;
+    role: string;
+  };
+  isLoggedIn: boolean;
+}
 
 interface AdminAuthContextType {
   admin: Admin | null;
@@ -31,6 +37,7 @@ export const AdminAuthProvider: React.FC<{ children: ReactNode }> = ({
       setAdmin(JSON.parse(storedAdmin));
     }
   }, []);
+
   return (
     <AdminAuthContext.Provider value={{ admin, setAdmin }}>
       {children}
