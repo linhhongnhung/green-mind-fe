@@ -37,10 +37,21 @@ const Account: React.FC = () => {
   const { setUser, user } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    const userFromLocalStorage = localStorage.getItem("user");
+    if (userFromLocalStorage) {
+      const parsedUser = JSON.parse(userFromLocalStorage);
+      setUser(parsedUser);
+      setFormData({
+        username: parsedUser?.user.username || "",
+        name: parsedUser?.name || "",
+        email: parsedUser?.email || "",
+        phonenumber: parsedUser?.phoneNumber || "",
+        address: parsedUser?.address || "",
+      });
+    } else {
       router.push("/login");
     }
-  }, [router, user]);
+  }, [router]);
 
   const [formData, setFormData] = useState({
     username: user?.user.username || "",
@@ -79,6 +90,7 @@ const Account: React.FC = () => {
             },
             isLoggedIn: true,
           };
+          localStorage.setItem("user", JSON.stringify(customer));
           setUser(customer);
           toast.success("Update successfully!", {
             autoClose: 1000,
@@ -123,6 +135,7 @@ const Account: React.FC = () => {
                 },
                 isLoggedIn: true,
               };
+              localStorage.setItem("user", JSON.stringify(customer));
               setUser(customer);
               toast.success("Update successfully!", {
                 autoClose: 1000,
