@@ -59,7 +59,7 @@ export const OrdersList: React.FC<OrdersProps> = (props) => (
 export const UpdateOrder: React.FC<OrdersProps> = (props) => {
   const [order, setOrder] = useState<Order>();
 
-  function extractIdFromUrl() {
+  const extractIdFromUrl = () => {
     const currentPath = window.location.href; // Lấy đường dẫn hiện tại
     const matches = currentPath.match(/\/order\/(\d+)$/); // Tìm số cuối cùng trong đường dẫn
 
@@ -69,7 +69,7 @@ export const UpdateOrder: React.FC<OrdersProps> = (props) => {
     }
 
     return null; // Trả về null nếu không tìm thấy ID
-  }
+  };
   const id = extractIdFromUrl();
 
   useEffect(() => {

@@ -31,12 +31,12 @@ const SearchPage: React.FC = () => {
   const searchData = { key: key };
 
   useEffect(() => {
-    async function fetchCategoryList() {
+    const fetchCategoryList = async () => {
       const categoriesList = await getAllCategories();
       setCategories(categoriesList);
-    }
+    };
 
-    async function fetchPlantList() {
+    const fetchPlantList = async () => {
       try {
         const searchDataJSON = JSON.stringify(searchData);
         const response = await searchProduct(searchDataJSON);
@@ -44,7 +44,7 @@ const SearchPage: React.FC = () => {
       } catch (error) {
         console.error("An error occurred while calling the API: ", error);
       }
-    }
+    };
     fetchCategoryList();
     fetchPlantList();
   }, [key]);

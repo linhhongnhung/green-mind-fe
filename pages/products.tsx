@@ -25,16 +25,16 @@ const Products: React.FC = () => {
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
   useEffect(() => {
-    async function fetchCategoryList() {
+    const fetchCategoryList = async () => {
       const categoriesList = await getAllCategories();
       setCategories(categoriesList);
-    }
+    };
 
     fetchCategoryList();
   }, []);
 
   useEffect(() => {
-    async function fetchPlantList() {
+    const fetchPlantList = async () => {
       try {
         const response = await getAllProductsWithCategories();
         console.log(response);
@@ -42,7 +42,7 @@ const Products: React.FC = () => {
       } catch (error) {
         console.error("An error occurred while calling the API: ", error);
       }
-    }
+    };
 
     fetchPlantList();
   }, []);

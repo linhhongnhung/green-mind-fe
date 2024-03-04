@@ -16,14 +16,14 @@ const Category: React.FC = () => {
   const [plantList, setPlantList] = useState<Plant[]>([]);
 
   useEffect(() => {
-    async function fetchPlantList() {
+    const fetchPlantList = async () => {
       try {
         const response = await getAllProducts();
         setPlantList(response);
       } catch (error) {
         console.error("An error occurred while calling the API: ", error);
       }
-    }
+    };
 
     fetchPlantList();
   }, []);
