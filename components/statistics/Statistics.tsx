@@ -1,4 +1,4 @@
-import { getOrdersByDate } from "@/api/api";
+import { getOrdersByDate } from "@/api";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -19,7 +19,10 @@ export const Statistics: React.FC<any> = () => {
   const handleSearch = async () => {
     // Kiểm tra tính hợp lệ của ngày bắt đầu và kết thúc
     if (!startDate || !endDate) {
-      toast.error('Please enter both start and end dates.', { autoClose: 2000, position: toast.POSITION.TOP_CENTER });
+      toast.error("Please enter both start and end dates.", {
+        autoClose: 2000,
+        position: toast.POSITION.TOP_CENTER,
+      });
       return;
     }
 
@@ -98,9 +101,8 @@ export const Statistics: React.FC<any> = () => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="revenue" fill="#3498db" className=""/>
+        <Bar dataKey="revenue" fill="#3498db" className="" />
       </BarChart>
-
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { getAdminByUsername, getCustomerByUsername, login } from "@/api/api";
+import { getAdminByUsername, getCustomerByUsername, login } from "@/api";
 import Link from "next/link";
 import React, { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";

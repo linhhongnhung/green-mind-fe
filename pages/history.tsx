@@ -1,4 +1,4 @@
-import { getOrdersByCustomerId } from "@/api/api";
+import { getOrdersByCustomerId } from "@/api";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Slide from "@/components/animations/Slide";

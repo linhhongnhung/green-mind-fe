@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import React, { ChangeEvent } from "react";
-import { login, signup } from "@/api/api";
+import { signup } from "@/api";
 
 interface InputFieldProps {
   name: string;
@@ -70,7 +70,7 @@ const Signup: React.FC = () => {
         toast.success("Sign up successfully!", { autoClose: 1000 });
         router.push("/login");
       } else {
-        toast.success("Sign up fail!", { autoClose: 1000 });
+        toast.error("Sign up fail!", { autoClose: 1000 });
       }
     } catch (error) {
       console.error("Error", error);

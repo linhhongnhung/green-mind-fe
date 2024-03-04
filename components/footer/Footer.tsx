@@ -1,8 +1,88 @@
 import Link from "next/link";
 import SocialNetwork from "./SocialNetwork";
 import FooterLink from "./FooterLink";
+import { useRouter } from "next/router";
 
 const Footer: React.FC = () => {
+  const router = useRouter();
+  const currentURL = router.asPath;
+  let hrefToPublic = ".";
+  if (currentURL.split("/").length - 1 === 2) {
+    hrefToPublic = "..";
+  }
+
+  const socialNetworks = [
+    {
+      name: "Facebook",
+      icon: `${hrefToPublic}/icon/Facebook.svg`,
+      href: "https://www.facebook.com",
+    },
+    {
+      name: "Instagram",
+      icon: `${hrefToPublic}/icon/Instagram.svg`,
+      href: "https://www.instagram.com",
+    },
+    {
+      name: "Twitter",
+      icon: `${hrefToPublic}/icon/Twitter.svg`,
+      href: "https://www.twitter.com",
+    },
+  ];
+
+  const footerLinks = [
+    {
+      title: "Information",
+      items: [
+        {
+          name: "About",
+          href: "/",
+        },
+        {
+          name: "Product",
+          href: "/",
+        },
+        {
+          name: "Blog",
+          href: "/",
+        },
+      ],
+    },
+    {
+      title: "Company",
+      items: [
+        {
+          name: "Community",
+          href: "/",
+        },
+        {
+          name: "Career",
+          href: "/",
+        },
+        {
+          name: "Our story",
+          href: "/",
+        },
+      ],
+    },
+    {
+      title: "Contact",
+      items: [
+        {
+          name: "Getting Started",
+          href: "/",
+        },
+        {
+          name: "Pricing",
+          href: "/",
+        },
+        {
+          name: "Resources",
+          href: "/",
+        },
+      ],
+    },
+  ];
+
   return (
     <footer className="bg-primary">
       <div
@@ -17,7 +97,7 @@ const Footer: React.FC = () => {
       >
         <div className="flex flex-col">
           <Link href="/">
-            <img src="./img/GREENMIND.svg" alt="GREENMIND" />
+            <img src={`${hrefToPublic}/img/GREENMIND.svg`} alt="GREENMIND" />
           </Link>
           <p className="text-gray md:max-w-[189px] my-6 max-sm:my-4">
             We help you find your dream plant
@@ -67,75 +147,3 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
-
-const socialNetworks = [
-  {
-    name: "Facebook",
-    icon: "./icon/Facebook.svg",
-    href: "https://www.facebook.com",
-  },
-  {
-    name: "Instagram",
-    icon: "./icon/Instagram.svg",
-    href: "https://www.instagram.com",
-  },
-  {
-    name: "Twitter",
-    icon: "./icon/Twitter.svg",
-    href: "https://www.twitter.com",
-  },
-];
-
-const footerLinks = [
-  {
-    title: "Information",
-    items: [
-      {
-        name: "About",
-        href: "/",
-      },
-      {
-        name: "Product",
-        href: "/",
-      },
-      {
-        name: "Blog",
-        href: "/",
-      },
-    ],
-  },
-  {
-    title: "Company",
-    items: [
-      {
-        name: "Community",
-        href: "/",
-      },
-      {
-        name: "Career",
-        href: "/",
-      },
-      {
-        name: "Our story",
-        href: "/",
-      },
-    ],
-  },
-  {
-    title: "Contact",
-    items: [
-      {
-        name: "Getting Started",
-        href: "/",
-      },
-      {
-        name: "Pricing",
-        href: "/",
-      },
-      {
-        name: "Resources",
-        href: "/",
-      },
-    ],
-  },
-];

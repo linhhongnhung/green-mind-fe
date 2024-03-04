@@ -1,10 +1,10 @@
-import { createOrder } from "@/api/api";
+import { createOrder } from "@/api";
 import { Button, ProductItem } from "@/components";
 import { useCheckAuth } from "@/components/authentication/AuthContext";
 import { useCartContext } from "@/components/context/CartContext";
 import SelectInput from "@/components/select_input/SelectInput";
 import { useRouter } from "next/router";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 interface Products {
@@ -45,7 +45,7 @@ const Order: React.FC = () => {
   let total = 0;
   orderProducts.map((item) => (total += item.product.price * item.quantity));
 
-  const handleMakeOrder = useCallback(async () => {
+  const handleMakeOrder = async () => {
     let products: Products[] = [];
     for (const item of orderProducts) {
       products.push({ productId: item.product.id, quantity: item.quantity });
@@ -57,12 +57,20 @@ const Order: React.FC = () => {
     };
     const orderJSON = JSON.stringify(orderData);
     if (paymentMethod.value === "Cash") {
-      await createOrder(orderJSON);
-      toast.success("Order successfully!", {
-        autoClose: 1000,
-        position: toast.POSITION.TOP_CENTER,
-      });
-      router.push("/history");
+      try {
+        await createOrder(orderJSON);
+        toast.success("Order successfully!", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+        router.push("/history");
+      } catch (error) {
+        toast.error("An error occurred. Please try again later!", {
+          autoClose: 5000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+        console.error(error);
+      }
     } else {
       localStorage.setItem("orderData", orderJSON);
       console.log(paymentMethod.value);
@@ -71,7 +79,7 @@ const Order: React.FC = () => {
         query: { orderJSON: orderJSON, total: total },
       });
     }
-  }, []);
+  };
 
   const handlePaymentMethodChange = (selectedOption: any) => {
     setPaymentMethod(selectedOption);

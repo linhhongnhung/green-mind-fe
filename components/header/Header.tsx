@@ -5,8 +5,18 @@ import { useCheckAuth } from "../authentication/AuthContext";
 import { Button } from "..";
 import { useState } from "react";
 import TabMenu from "./TabMenu";
+import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
+  const router = useRouter();
+  const currentURL = router.asPath;
+  let hrefToPublic = ".";
+  if (currentURL.split("/").length - 1 === 2) {
+    hrefToPublic = "..";
+  }
+
+  const logoHref = `${hrefToPublic}/img/GREENMIND.svg`;
+
   const tabList = [
     {
       tabName: "Home",
@@ -20,15 +30,15 @@ const Header: React.FC = () => {
 
   const tabIconList = [
     {
-      iconSrc: "./icon/Cart.svg",
+      iconSrc: `${hrefToPublic}/icon/Cart.svg`,
       href: "/cart",
     },
     {
-      iconSrc: "./icon/History.svg",
+      iconSrc: `${hrefToPublic}/icon/History.svg`,
       href: "/history",
     },
     {
-      iconSrc: "./icon/Account.svg",
+      iconSrc: `${hrefToPublic}/icon/Account.svg`,
       href: "/account",
     },
   ];
@@ -79,7 +89,7 @@ const Header: React.FC = () => {
           onClick={handleMenu}
         >
           <Link href="/">
-            <img src="./img/GREENMIND.svg" alt="GREENMIND logo" />
+            <img src={logoHref} alt="GREENMIND logo" />
           </Link>
         </div>
         <div
@@ -122,7 +132,7 @@ const Header: React.FC = () => {
           onClick={handleMenu}
         >
           <Link href="/">
-            <img src="./img/GREENMIND.svg" alt="GREENMIND logo" />
+            <img src={logoHref} alt="GREENMIND logo" />
           </Link>
         </div>
         <div
@@ -168,7 +178,7 @@ const Header: React.FC = () => {
             max-md:px-6"
         >
           <Link href="/" className="mr-24 my-auto max-md:mr-0">
-            <img src="./img/GREENMIND.svg" alt="GREENMIND logo" />
+            <img src={logoHref} alt="GREENMIND logo" />
           </Link>
           <div className="flex justify-between w-[1010px] max-md:hidden">
             <div className="flex my-auto">
@@ -229,7 +239,7 @@ const Header: React.FC = () => {
             max-md:px-6"
         >
           <Link href="/" className="mr-24 my-auto max-md:mr-0">
-            <img src="./img/GREENMIND.svg" alt="GREENMIND logo" />
+            <img src={logoHref} alt="GREENMIND logo" />
           </Link>
           <div className="flex justify-between w-[1010px] max-md:hidden">
             <div className="flex">
@@ -262,7 +272,7 @@ const Header: React.FC = () => {
                     transition duration-100"
                 onClick={handleMenu}
               >
-                <img src="./icon/FilterRight.svg" alt="icon" />
+                <img src={`${hrefToPublic}/icon/FilterRight.svg`} alt="icon" />
               </div>
             </div>
           </div>

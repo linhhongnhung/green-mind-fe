@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { QuantityInput } from "..";
-import { updateCartProductQuantity } from "@/api/api";
+import { updateCartProductQuantity } from "@/api";
 import { useCartContext } from "../context/CartContext";
 
 interface ProductItemProps {

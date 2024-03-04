@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { createOrderAfterPayment } from "@/api/api";
+import { createOrderAfterPayment } from "@/api";
 import { toast } from "react-toastify";
 
 const PaymentStatus: React.FC = () => {

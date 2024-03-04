@@ -1,4 +1,4 @@
-import { getAllCategories, getAllProducts, searchProduct } from "@/api/api";
+import { getAllCategories, searchProduct } from "@/api";
 import { PlantCard } from "@/components";
 import { Search } from "@/components/home";
 import React, { useEffect, useState } from "react";

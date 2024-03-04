@@ -8,7 +8,7 @@ import {
   RadioButtonGroupInput,
 } from "react-admin";
 import React, { useState, useEffect } from "react";
-import { getOrderById } from "@/api/api";
+import { getOrderById } from "@/api";
 import Link from "next/link";
 
 interface Orders {

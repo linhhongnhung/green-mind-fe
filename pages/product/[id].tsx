@@ -1,7 +1,7 @@
-import { addToCart, getProductById } from "@/api/api";
+import { addToCart, getProductById } from "@/api";
 import { Button, QuantityInput } from "@/components";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCheckAuth } from "@/components/authentication/AuthContext";
 import { toast } from "react-toastify";
 
@@ -55,7 +55,7 @@ const Product: React.FC<ProductProps> = (props) => {
     }
   };
 
-  const handleAddToCart = useCallback(() => {
+  const handleAddToCart = () => {
     if (!user) {
       router.push("/login");
     } else {
@@ -63,14 +63,22 @@ const Product: React.FC<ProductProps> = (props) => {
         const productId = Array.isArray(id)
           ? parseInt(id[0], 10)
           : parseInt(id, 10);
-        const response = addToCart(user.id, productId, quantity);
-        toast.success("Add to cart successfully!", {
-          autoClose: 1000,
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
+        try {
+          const response = addToCart(user.id, productId, quantity);
+          toast.success("Add to cart successfully!", {
+            autoClose: 1000,
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
+        } catch (error) {
+          toast.error("An error occurred!", {
+            autoClose: 1000,
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
+          console.error("Error during addToCart:", error);
+        }
       }
     }
-  }, []);
+  };
 
   return (
     <main className="max-w-[1440px] mx-auto">

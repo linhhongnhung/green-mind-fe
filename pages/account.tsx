@@ -7,7 +7,7 @@ import {
   getAllUsernames,
   updateCustomer,
   updateCustomerWithNewUsername,
-} from "@/api/api";
+} from "@/api";
 
 const Account: React.FC = () => {
   const inputList = [
@@ -132,6 +132,10 @@ const Account: React.FC = () => {
           }
         }
       } catch (error) {
+        toast.error("An error occurred. Please try again later!", {
+          autoClose: 5000,
+          position: toast.POSITION.TOP_CENTER,
+        });
         console.error("Error ", error);
       }
     };

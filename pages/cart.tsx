@@ -1,4 +1,4 @@
-import { getCart, removeCartItemByProductId } from "@/api/api";
+import { getCart, removeCartItemByProductId } from "@/api";
 import { ProductItem } from "@/components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -73,6 +73,10 @@ const Cart: React.FC = () => {
         });
       }
     } catch (error) {
+      toast.error("An error occurred. Please try again later!", {
+        autoClose: 5000,
+        position: toast.POSITION.TOP_CENTER,
+      });
       console.error("An error occurred while deleting items: ", error);
     }
   };

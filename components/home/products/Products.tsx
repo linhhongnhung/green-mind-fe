@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Button, PlantCard } from "@/components";
 import Slide from "@/components/animations/Slide";
-import { getAllProducts } from "@/api/api";
+import { getAllProducts } from "@/api";
 
 const Products: React.FC = () => {
   const [plantList, setPlantList] = useState<Plant[]>([]);
 
   useEffect(() => {
-    async function fetchPlantList() {
+    const fetchPlantList = async () => {
       try {
         const response = await getAllProducts();
         setPlantList(response.slice(-3));
       } catch (error) {
         console.error("An error occurred while calling the API: ", error);
       }
-    }
+    };
 
     fetchPlantList();
   }, []);

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useCheckAuth } from "@/components/authentication/AuthContext";
-import { generateVnpayUrl } from "@/api/api";
+import { generateVnpayUrl } from "@/api";
 
 const Payment: React.FC = () => {
   const router = useRouter();

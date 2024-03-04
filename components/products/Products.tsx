@@ -1,4 +1,4 @@
-import { getCategoriesByIds, getProductImageUrl } from "@/api/api";
+import { getCategoriesByIds, getProductImageUrl } from "@/api";
 import React, { useState, useEffect } from "react";
 import {
   List,
