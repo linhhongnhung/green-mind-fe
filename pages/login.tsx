@@ -53,8 +53,8 @@ const InputField: React.FC<InputFieldProps> = ({
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+    username: "test",
+    password: "123456789",
   });
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
