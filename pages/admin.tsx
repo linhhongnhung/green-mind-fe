@@ -34,7 +34,7 @@ const AdminPage: React.FC = () => {
     <main className="">
       <Admin
         dataProvider={simpleRestProvider(
-          "https://green-mind-be-production.up.railway.app"
+          "https://greenmind-be-production.up.railway.app"
         )}
       >
         <Resource
